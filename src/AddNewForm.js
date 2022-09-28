@@ -1,5 +1,6 @@
 import { Input, MultiSelect, Textarea, Select, Button, Title, Notification } from '@mantine/core';
 import { useState } from 'react';
+import { stakeOptions, tagOptions } from './constants';
 import { createNote } from './lib';
 
 export const AddNewForm = () => {
@@ -7,7 +8,14 @@ export const AddNewForm = () => {
   const [stakes, setStakes] = useState([]);
   const [notes, setNotes] = useState('');
   const [tag, setTag] = useState('');
-  const [showError, setShowError] = useState(false)
+  const [showError, setShowError] = useState(false);
+
+  const handleReset = () => {
+    setAlias('');
+    setStakes([]);
+    setNotes('');
+    setTag('');
+  }
 
   const onAdd = async () => {
     if (!alias || !notes) {
@@ -22,7 +30,8 @@ export const AddNewForm = () => {
         notes,
         tag
       }
-      createNote(note)
+      await createNote(note);
+      handleReset()
     }
   }
 
@@ -45,15 +54,7 @@ export const AddNewForm = () => {
       <MultiSelect
         label="Stakes they play"
         placeholder="Choose more than one"
-        data={[
-          { value: '4', label: '4nl' },
-          { value: '10', label: '10nl' },
-          { value: '25', label: '25nl' },
-          { value: '50', label: '50nl' },
-          { value: '100', label: '100nl' },
-          { value: '200', label: '200nl' },
-          { value: '400', label: '400nl' },
-        ]}
+        data={stakeOptions}
         value={stakes}
         onChange={setStakes}
       />
@@ -69,12 +70,7 @@ export const AddNewForm = () => {
       <Select
         label="Tag"
         placeholder="Pick one"
-        data={[
-          { value: 'whale', label: 'Whale' },
-          { value: 'fish', label: 'Fish' },
-          { value: 'badReg', label: 'Bad Reg' },
-          { value: 'goodReg', label: 'Good Reg' },
-        ]}
+        data={tagOptions}
         value={tag}
         onChange={setTag}
       />

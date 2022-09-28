@@ -9,7 +9,12 @@ export const createNote = async (data) => {
 
 export const updateNote = async (id, data) => {
   const noteDoc = doc(db, 'notes', id)
-  const newFields = { stakes: data + 'updated'}
+  const newFields = {
+    alias: data.alias,
+    stakes: data.stakes,
+    notes: data.notes,
+    tag: data.tag
+  }
   await updateDoc(noteDoc, newFields);
 };
 
