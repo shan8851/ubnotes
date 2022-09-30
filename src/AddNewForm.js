@@ -1,4 +1,4 @@
-import { Input, MultiSelect, Textarea, Select, Button, Title, Notification } from '@mantine/core';
+import { Input, MultiSelect, Textarea, Select, Button, Title, Notification, Space } from '@mantine/core';
 import { useState } from 'react';
 import { stakeOptions, tagOptions } from './constants';
 import { createNote } from './lib';
@@ -37,7 +37,7 @@ export const AddNewForm = () => {
 
   return (
     <div>
-      <Title order={3}>Add new note</Title>
+      <Title order={2}>Add new note</Title>
       {showError && (
         <Notification color='red' title="Oops, something went wrong">
           Please make sure you add at least Alias and notes.
@@ -50,7 +50,7 @@ export const AddNewForm = () => {
           value={alias}
         />
       </Input.Wrapper>
-
+      <Space h="lg" />
       <MultiSelect
         label="Stakes they play"
         placeholder="Choose more than one"
@@ -58,6 +58,7 @@ export const AddNewForm = () => {
         value={stakes}
         onChange={setStakes}
       />
+      <Space h="lg" />
       <Textarea
         placeholder="Notes..."
         label="Notes"
@@ -67,6 +68,7 @@ export const AddNewForm = () => {
         onChange={e => setNotes(e.target.value)}
         withAsterisk
       />
+      <Space h="lg" />
       <Select
         label="Tag"
         placeholder="Pick one"
