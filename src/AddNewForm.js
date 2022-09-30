@@ -1,4 +1,5 @@
-import { Input, MultiSelect, Textarea, Select, Button, Title, Notification, Space } from '@mantine/core';
+import { Input, MultiSelect, Select, Button, Title, Notification, Space } from '@mantine/core';
+import RichTextEditor from '@mantine/rte';
 import { useState } from 'react';
 import { stakeOptions, tagOptions } from './constants';
 import { createNote } from './lib';
@@ -6,14 +7,15 @@ import { createNote } from './lib';
 export const AddNewForm = () => {
   const [alias, setAlias] = useState('');
   const [stakes, setStakes] = useState([]);
-  const [notes, setNotes] = useState('');
+  const [notes, setNotes] = useState([]);
   const [tag, setTag] = useState('');
   const [showError, setShowError] = useState(false);
+  const [rteValue, onChange] = useState('<p>Type @ or # to see mentions autocomplete</p>');
 
   const handleReset = () => {
     setAlias('');
     setStakes([]);
-    setNotes('');
+    setNotes([]);
     setTag('');
   }
 
@@ -27,7 +29,7 @@ export const AddNewForm = () => {
       const note = {
         alias,
         stakes,
-        notes,
+        notes: rteValue,
         tag
       }
       await createNote(note);
@@ -59,14 +61,14 @@ export const AddNewForm = () => {
         onChange={setStakes}
       />
       <Space h="lg" />
-      <Textarea
-        placeholder="Notes..."
-        label="Notes"
-        autosize
-        minRows={4}
-        value={notes}
-        onChange={e => setNotes(e.target.value)}
-        withAsterisk
+      <RichTextEditor
+        id="rte"
+        controls={[
+          ['bold', 'italic', 'underline', 'link', 'image'],
+          ['unorderedList', 'h1', 'h2', 'h3'],
+        ]}
+        onChange={onChange}
+        value={rteValue}
       />
       <Space h="lg" />
       <Select

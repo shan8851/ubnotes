@@ -20,7 +20,7 @@ export const NoteCard = ({ id, user }) => {
           ))}
         </div>
         )}
-        <Text>{notes}</Text>
+        <Text dangerouslySetInnerHTML={{ __html: notes}}></Text>
         {label && (
           <Chip>{label}</Chip>
         )}
