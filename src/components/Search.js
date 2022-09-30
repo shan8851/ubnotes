@@ -9,6 +9,7 @@ export const Search = ({ searchString, setSearchString }) => {
       <Input
       onChange={e => setSearchString(e.target.value)}
       value={searchString}
+      placeholder="Search by alias"
     />
     </>
   )

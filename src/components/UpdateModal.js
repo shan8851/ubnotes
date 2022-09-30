@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Modal, Button, Input, MultiSelect, Select, Title } from '@mantine/core';
+import { Modal, Button, Input, MultiSelect, Title } from '@mantine/core';
 import { updateNote } from '../lib';
 import { stakeOptions, tagOptions } from '../constants';
 import RichTextEditor from '@mantine/rte';
@@ -54,9 +54,9 @@ export const UpdateModal = ({ id, data }) => {
           onChange={onChange}
           value={notes}
         />
-        <Select
+        <MultiSelect
           label="Tag"
-          placeholder="Pick one"
+          placeholder="Pick as many as you want"
           data={tagOptions}
           value={tag}
           onChange={setTag}
@@ -64,7 +64,7 @@ export const UpdateModal = ({ id, data }) => {
         <Button styles={{ root: { marginTop: 8 } }} onClick={handleUpdate}>Update</Button>
       </Modal>
 
-      <Button variant='outline' onClick={() => setOpened(true)}>Update</Button>
+      <Button variant="gradient" onClick={() => setOpened(true)}>Update</Button>
     </>
   );
 }

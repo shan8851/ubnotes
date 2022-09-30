@@ -1,16 +1,15 @@
 import { MantineProvider, AppShell, Navbar, Header, Title, Space, } from "@mantine/core";
-import { collection, onSnapshot } from "firebase/firestore";
+import { onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { AddNewForm } from "./AddNewForm";
 import { Search } from "./components/Search";
-import { db } from "./firebase-config";
+import { notesCollectionRef } from "./lib";
 import { RealTimeList } from "./RealTimeList";
 
 function App() {
   const [data, setData] = useState([]);
   const [notes, setNotes] = useState([]);
   const [searchString, setSearchString] = useState('')
-  const notesCollectionRef = collection(db, 'notes');
 
   useEffect(() => {
     const unsubscribe = onSnapshot(notesCollectionRef, snapshot => {
@@ -22,11 +21,13 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+
   useEffect(() => {
     setNotes(data.filter(d => d.alias.toLowerCase().includes(searchString.toLowerCase())))
+
   }, [data, searchString])
 
-
+//  console.log(data.filter(d => d.alias.toLowerCase().includes(searchString.toLowerCase()) && data.stakes.map(s => s.includes(stakeFilter))))
 
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>

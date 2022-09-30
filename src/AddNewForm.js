@@ -1,4 +1,4 @@
-import { Input, MultiSelect, Select, Button, Title, Notification, Space } from '@mantine/core';
+import { Input, MultiSelect, Button, Title, Notification, Space } from '@mantine/core';
 import RichTextEditor from '@mantine/rte';
 import { useState } from 'react';
 import { stakeOptions, tagOptions } from './constants';
@@ -8,15 +8,16 @@ export const AddNewForm = () => {
   const [alias, setAlias] = useState('');
   const [stakes, setStakes] = useState([]);
   const [notes, setNotes] = useState([]);
-  const [tag, setTag] = useState('');
+  const [tag, setTag] = useState([]);
   const [showError, setShowError] = useState(false);
-  const [rteValue, onChange] = useState('<p>Type @ or # to see mentions autocomplete</p>');
+  const [rteValue, onChange] = useState('Notes...');
 
   const handleReset = () => {
     setAlias('');
     setStakes([]);
     setNotes([]);
-    setTag('');
+    setTag([]);
+    onChange('Notes...')
   }
 
   const onAdd = async () => {
@@ -71,9 +72,9 @@ export const AddNewForm = () => {
         value={rteValue}
       />
       <Space h="lg" />
-      <Select
+      <MultiSelect
         label="Tag"
-        placeholder="Pick one"
+        placeholder="Pick as many as you want"
         data={tagOptions}
         value={tag}
         onChange={setTag}
